@@ -12,19 +12,11 @@ class newsSpider(scrapy.Spider):
 
     def parse(self, response):
         news = response.xpath("/html/body/main/div/div/div/div/section/div/ul/li")
-        # print (len(news))
         for i in news:
             item = NewsItem()
             item['title'] = i.css("h3 a::text").get()
             item['link'] = i.css("a::attr(href)").get()
-            # yield {
-                # 'title': item.xpath("/html/body/main/div[1]/div/div/div/section/div/ul/li/div/h3/a").get(),
-                # 'link': item.xpath("/html/body/main/div[1]/div/div/div/section/div/ul/li/div/h3/a/@href").get()
-            # print (item.css("a::attr(href)").get())
-            # print (item.css("h3 a::text").get())
-
-            # }
-            print(item)
+            yield item
   
         print()
         print("Next page")

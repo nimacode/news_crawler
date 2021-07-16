@@ -5,14 +5,14 @@
 
 
 # useful for handling different item types with a single interface
-import pymongo
+from pymongo import MongoClient
 from itemadapter import ItemAdapter
 
 
 class NewsPipeline:
     def __init__(self):
-        self.conn = pymongo.MongoClient("mongodb+srv://admin:admin@localhost/news_crawler?retryWrites=true&w=majority")
-        db = self.conn['news_crawler']
+        self.conn = MongoClient("127.0.0.1", 27017, username = "admin", password = "956659")
+        db = self.conn['donyaye_tahlil']
         self.collection = db['news']
     def process_item(self, item, spider):
         self.collection.insert(dict(item))
